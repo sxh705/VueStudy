@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <input v-model="msg" style="background-color: #3a8ee6;font-min-size: large">
+    <!--动态传递 props机制
+    v-bind机制
+    -->
+    <login :msg="msg"></login>
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script>
+    const login = {
+        //数据只能单向的从父组件传向子组件
+        template: `<div style="background-color: #00f255"><h3>子组件 {{msg1}}</h3><input v-model="msg1"></div>`,
+        data() {
+            return {
+                msg1: this.msg,
+            }
+        },
+        props: ['msg',],
+    }
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: `动态传递`,
+        },
+        methods: {},
+        components: {
+            login,
+        }
+    })
+
+</script>
+</html>

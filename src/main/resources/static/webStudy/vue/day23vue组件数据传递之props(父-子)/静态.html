@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <!--静态数据: 标签声明-->
+    <login title="我是标题" count = 0></login>
+    <login></login>
+
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script>
+    //vue开发: 一切皆组件
+    const login = {
+        /*
+        数据传递: props机制: 负责父组件向子组件的数据流动
+        静态数据: 标签声明, 在组件内部使用 props数组 接受数据
+        动态数据
+        */
+        template: `<div><h3>用户登录 {{title}} {{loginTitle}}</h3></div>`,
+        data() {
+            return {
+                //title: "我是覆盖标题",
+                //重名: 优先展示props内内容同时报错.
+                loginTitle: this.title,
+            }
+        },
+        props: [//props接受的数据等价于data声明的数据
+            "title",
+            'count',
+        ],
+    }
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: `组件数据传递`,
+        },
+        methods: {},
+        components: {
+            //es6语法, 对象名名和注册名相同, 少写一个
+            login,
+        }
+    })
+
+</script>
+</html>

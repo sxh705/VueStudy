@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <h2>{{window.a++}}</h2>
+    <login></login>
+    <login></login>
+    <login></login>
+    <login></login>
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script>
+    var a = 1
+    const login = {
+        template: `<div>
+                    <h2>用户登录{{counter}} c {{c2}}</h2>
+                    <h2>用户登录{{msg}}</h2>
+                    <button @click="add()">点我counter++</button>
+                </div>`,
+        data() {
+            return {
+                counter: 0,
+                msg: "我是组件"
+            }
+        }, //属于组件自身的数据, 必须是函数, return一个数据对象
+        //不能渠道外部msg
+        methods: {
+            add() {
+                this.counter += 20
+            }
+        },
+        computed: {//计算方法
+            c2() {
+                return Math.pow(this.counter, 2)
+            }
+        },
+        beforeCreate() {
+            console.log("bc2")
+        },
+        created() {
+            console.log("c2")
+        },
+        components: {
+            c3: `<h1>23333</h1>`,
+            beforeCreate() {
+                console.log('bc3')
+            }
+        },
+    }
+    /*
+    * vue局部组件的method data computed compoents
+    *
+    * */
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "vue局部组件的method data computed compoents",
+            window,
+        },
+        methods: {},
+        components: {
+            //注册局部组件
+            login,
+        },
+        beforeCreate() {
+            console.log("bc")
+        },
+        created() {
+            console.log("cd")
+        }
+    })
+</script>
+</html>

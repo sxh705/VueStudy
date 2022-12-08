@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <login></login>
+
+
+    <hr>
+
+
+    <login>
+        <div slot="aa">start</div>
+        <div slot="aa">--start1--</div>
+        <div slot="bb">end--{{msg}}</div>
+        <div>sxh705</div>
+        111
+        333
+        444
+        555
+    </login>
+
+
+    <hr>
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script>
+    const login = {
+        //slot拓展组件的接口 插槽将组件内部内容替换至slot标签
+        //具名插槽
+        //默认插槽
+        template: `<div>
+            <slot name="aa"></slot>
+            <h3>用户登录</h3>
+            <slot name="bb"></slot>
+            <slot>我是默认slot</slot>
+            </div>`
+
+    }
+    const app = new Vue({
+        el: "#app",
+        data: {
+            //slot拓展组件
+            msg: `组件slot的使用`,
+        },
+        methods: {},
+        components: {
+            login,
+        }
+    })
+
+</script>
+</html>

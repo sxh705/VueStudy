@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门</title>
+    <script src="../vue27.js"></script>
+
+</head>
+<body>
+<div id="app">
+    {{ msg }}
+    <div v-text="msg">欢迎你加入</div>
+    <div>{{ msg }}, 欢迎你加入</div>
+    <div v-text="<a href='>白纸欢迎您"></div>
+    <div v-html="<a href='>白纸欢迎您"></div>
+    
+    <input type="text" >
+
+
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",//vue实例作用范围
+        data: {
+            msg: "白纸教育欢迎你"
+        },
+    })
+</script>
+</body>
+</html>

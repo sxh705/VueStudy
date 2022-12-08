@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <!--
+        axios比ajax更加轻量级
+        专用于vue框架的异步请求库
+        特性:
+            防御xsrf
+            自动转换数据
+            拦截请求和响应
+         基本使用
+            核心js:
+         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    -->
+    <h1>axios异步请求</h1>
+
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="../vue27.js"></script>
+<script src="../axios12.js"></script>
+<script>
+    //拦截器 给接口批量添加token
+    //intercepter 将axios中的共有参数交给拦截器处理, 减少axios的请求代码冗余
+    //两种拦截器
+    //前端系统  1.请求拦截器  后端系统 (用户token鉴权
+    //后端系统  2.响应拦截器  前端系统 (捕获无网络, 返回值错误异常
+
+    //原生的拦截器
+    // axios.intercept.request.use(config=>{})
+
+    //对instance实例的拦截器
+    let instance = axios.create({
+        baseURL: "http://localhost:8081/",
+        timeout: 1000,
+    })
+    //请求拦截器
+    instance.interceptors.request.use(config => {
+        //config:配置, 对网络请求进行修改和增强,
+        toastr.warning("config" + config)
+        console.log(config)
+        if (config.url.indexOf("?") == -1)
+            config.url += "?token=1234"
+        else
+            config.url += "&token=1234"
+        return config
+    })
+
+    instance.interceptors.response.use(response => {
+        toastr.warning("response" + response)
+        console.log(response)
+        // response.data = "xxx"
+        if (response.status != 200)
+            alert("网络异常~")
+        return response
+    })
+
+    instance.get("/demo?id=11&name=xiaohe").then(res => toastr.warning(res.data)).catch(err => {
+        toastr.warning("err")
+        console.log(err)
+    })
+
+</script>
+</html>

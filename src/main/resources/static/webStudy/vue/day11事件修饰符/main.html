@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>按键修饰符</h1>
+    <!--
+        事件修饰: 对所有事件
+        按键修饰符:  修饰键盘事件
+        keyup keydown 回车 esc 删除 方向键
+
+        .enter (回车
+        .tab (tab按键
+        .delete (删除 退格
+        .esc
+        .space (空格
+        .up (上下左右
+        .down
+        .left
+        .right
+    -->
+    <input v-model="msg" @keyup.enter.tab.delete.up.down.left.right="toastr.warning(msg)">
+
+</div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="../vue27.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "sxh705"
+        },
+        methods: {},
+    })
+</script>
+</html>

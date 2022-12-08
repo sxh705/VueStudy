@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bootStrap</title>
+    <!-- 3.4.1 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <!--ecmaSrcipt 6.x-->
+    <!--javascript: 原名ecmascript-->
+    <!--ECMA规范
+    ECMA国际, 指定的标准
+    解决js的浏览器差异问题
+    网景公司
+    js依然存在着浏览器差异
+    ECMA 1.x --- 7.x 8.x
+    当前学习: 5.x
+    企业常用: ES6.x 在浏览器中比较统一
+    1.ES6变量声明:
+        var --- 推荐使用let const
+
+    -->
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script src="../axios12.js"></script>
+<script>
+    //一.var   的先天不足: 使用var声明的变量存在作用范围混淆问题.
+    //let   范围:声明的代码块, 严谨
+    //const 声明常量, 赋值后不能改
+    //变量推荐let
+    //对象, 数组推荐const
+
+    //二.匿名函数: ()=>{} 
+    // 1.单参数可以无() 
+    // 2.单语句可以无{} 
+    // 3.自身无this, axios中常用做回调, 可以找到vue实例, 不会找到windows实例
+
+
+    function test() {
+        for (var i = 0; i < 10; i++)
+            console.log("for in" + i)
+        console.log("for out" + i);//声明混淆问题
+        const student = {id: 21, name: "zhangsan"}
+        console.log(student);
+        student.name = "xiaohong"
+        console.log(student)
+        student.age = 23
+        console.log(student)
+
+        const schools = ["北京", "天津"]
+        console.log(schools)
+        schools.push("河南")
+        console.log(schools);
+        schools.length = 0
+        console.log(schools);
+
+    }
+
+    test()
+
+    //三. 模板字符串
+    //反引号 1前面的那个'`'
+    //标签混乱问题
+    let html =
+        "<button onclick=\"test('+id+')\"></button>" +
+        "<button onclick=\"test('+id+')\"></button>" +
+        "<button onclick=\"test('+id+')\"></button>" +
+        "<button onclick=\"test('+id+')\"></button>"
+    let html1 =
+        `<div>
+            <h1>我是小黑</h1>
+        </div>`//模板字符串, 多行字符串
+
+    //四. 对象定义
+    let id = 21
+    let name = "小三"
+    let age = 23
+    const stu = {
+        id: id,
+        name: name,
+        age: age,
+    }
+    //属性名和变量名一致写一个就行
+    const stu1 = {id, name, age}
+    console.log(stu)
+    console.log(stu1)
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "es6基本语法"
+        },
+        methods: {},
+    })
+</script>
+</html>

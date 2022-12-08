@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门_事件</title>
+    <script src="../vue27.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <div>{{msg}}</div>
+    <h3>遍历对象</h3>
+    <span v-for="(value, key, index) in user">[{{index}} {{key}} {{value}}]</span>
+    <h3>遍历数组</h3>
+    <ul>
+        <li v-for="(x, id) in schools">
+            {{id+1}}
+            {{x}}
+        </li>
+    </ul>
+    <h3 border="1" width="100%">遍历数组对象</h3>
+    <!-- 遍历数组对象: v-for item index in data变量名-->
+    <table border="3" width="50%" cellspacing="0">
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>工资</th>
+            <th>简介</th>
+            <th colspan="2">操作</th>
+        </tr>
+        <tr v-for="(item, id) in users" key="item.id">
+            <td v-for=" (value) in item">{{value}}</td>
+            <td @click="alert(id)">修改</td>
+            <td @click="alert(id)">删除</td>
+        </tr>
+    </table>
+
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",//vue实例作用范围
+        data: {
+            msg: "hello world",
+            user: {id: 21, name: "xiaohei", age: 23, salary: 3.1415},
+            schools: ["河南校区", "河北校区", "河东校区"],
+            users: [
+                {
+                    id: 21,
+                    name: "xiaocheng",
+                    age: 23,
+                    salary: 23333.23,
+                    content: "小城是个好奥特曼"
+                }, {
+                    id: 22,
+                    name: "xiaoming",
+                    age: 23,
+                    salary: 23333.23,
+                    content: "小明是个好人"
+                }, {
+                    id: 23,
+                    name: "xiaosan",
+                    age: 23,
+                    salary: 23333.23,
+                    content: "小三是个好菇凉"
+                },
+            ]
+        },
+
+        methods: {},
+
+    })
+</script>
+
+</body>
+</html>

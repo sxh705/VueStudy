@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <!--
+        axios比ajax更加轻量级
+        专用于vue框架的异步请求库
+        特性:
+            防御xsrf
+            自动转换数据
+            拦截请求和响应
+         基本使用
+            核心js:
+         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    -->
+    <h1>axios异步请求</h1>
+
+
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="../vue27.js"></script>
+<script src="../axios12.js"></script>
+<script>
+    //springboot禁止跨域请求
+    //发送请求 http://axios-js.com/zh-cn/docs/#axios-request-config
+    axios.get('http://localhost:8081/demo?id=21&name=xiaochen').then(res => toastr.warning(res.data)).catch(err => toastr.warning("err"))
+    axios.post("http://localhost:8081/demo", {id: 21, name: "张三",}).then(res => toastr.warning(res.data)).catch(err => toastr.warning("err"))
+    axios.put("http://localhost:8081/demo", {id: 21, name: "张三",}).then(res => toastr.warning(res.data)).catch(err => toastr.warning("err"))
+
+    //创建实例 http://axios-js.com/zh-cn/docs/#axios-create-config
+    const instance = axios.create({baseURL: "http://localhost:8081/",})
+    instance.get("demo", {id:11, name:"小明"}).then(res => toastr.warning(res.data)).catch(err => toastr.warning("err"))
+
+</script>
+</html>

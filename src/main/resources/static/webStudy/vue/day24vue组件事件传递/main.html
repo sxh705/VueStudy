@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <login name="小陈" :msg="msg" @aa="testParent" @bb="testHH"></login>
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script>
+    const login = {
+        template: `<div style="color: #3a8ee6"><h3>用户登录--{{name}}--{{msg}}--
+<button @click.prevent="testChild">parent</button></h3></div>`,
+        //data函数: 用于保持数据独立性
+        data() {
+            return {
+                count: 0,
+            }
+        },
+        methods: {
+            //传递事件(方法)
+            //标签传递,
+            testChild() {
+                console.log("子组件事件!")
+                //必须小写调用父`组件
+                this.$emit('aa')
+                this.$emit('bb', "儿子的关心! ")
+            }
+        },
+        props: ['name', 'msg',],
+    }
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: `事件传递`,
+        },
+        methods: {
+            testParent() {
+                console.log("父组件事件!")
+            },
+            testHH(msg) {
+                console.log("hh")
+                this.msg = msg
+            }
+        },
+        components: {
+            login,
+        }
+    })
+
+</script>
+</html>

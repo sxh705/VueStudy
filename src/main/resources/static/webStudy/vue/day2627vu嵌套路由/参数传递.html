@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <!--
+    切换路由: 传递参数: 地址栏传参:
+    1.queryString(?拼接
+    2.restful路径传参
+    -->
+    <a href="#/login?name=xiaocheng&password=123">登录</a>
+    <a href="#/register/21/xiaochen">注册</a>
+
+    <router-link to="/login?password=12345">登录</router-link>
+    <router-link :to="{path:'/login?name=xiaohe&password=123456'}">登录</router-link>
+
+    <router-link :to="{path:'/login', query:{name:'xiaohe',password:'705199'}}">登录</router-link>
+    <router-link :to="{path:'/login', query:{name:'xiaohe',password:'705199'}}">登录</router-link>
+    <router-link :to="{name:'Login', query:{name:'xiaohe',password:'705199'}}">登录</router-link>
+
+    <!--restful-->
+    <router-link :to="{name:'Register', params:{id:233, name:'233'}}">注册</router-link>
+
+
+    <a href="#/notFound">404</a>
+    <router-view></router-view>
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script src="../vue-router_36.js"></script>
+<script>
+    const login = {
+        template: `<div><h4>登录</h4></div>`,
+        //路径切换路由: 参数: 组件生命周期函数:
+        //created周期, 此时完成data,methods,computed属性校验
+        created() {
+            // console.log("crea")
+            //console.log(this)
+            // console.log(this.$route)
+            const query = this.$route.query
+            // console.log(query.name)
+            console.log(query.password)
+        },
+    }
+    const register = {
+        template: `<div><h4>注册</h4></div>`,
+        created() {
+            const params = this.$route.params
+            console.log(this.$route.params.id)
+            console.log(this.$route.params.name)
+        }
+    }
+    const notFound = {//404组件
+        template: `<div><h4>页面走丢了...</h4></div>`,
+    }
+    const router = new VueRouter({
+        routes: [
+            {path: '/', redirect: '/login'},
+            {path: '/login', component: login, name: 'Login'},
+            {path: '/register/:id/:name', component: register, name: 'Register'},
+            {path: '*', component: notFound},
+        ]
+    })
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: `vue router参数传递 `,
+        },
+        methods: {},
+        components: {},
+        router,
+    })
+
+</script>
+</html>

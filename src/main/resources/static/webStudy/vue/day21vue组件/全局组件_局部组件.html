@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <!--
+    登录
+    注册
+    -->
+    <login></login>
+    <register></register>
+    <add></add>
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script>
+    //定义全局组件
+    // 参数1: 组件名
+    // 参数2. 组件配置对象
+    Vue.component('login', {
+        template: `<div>
+        <h2>用户登录</h2>
+        </div>`,
+    })
+    Vue.component('register', {
+        template: `
+        <h2>用户注册</h2>
+        `,
+    })
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "vue组件 components",
+        },
+        methods: {},
+        components: {
+            //注册局部组件
+            add: {
+                template: `<div>
+                    <h3>用户添加</h3>
+                    <form action=""></form>
+                </div>`
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <!--
+    vue推荐spa开发
+    single
+    page
+    application
+    (单页面应用)
+    vue推荐基于单页面的web引用
+    什么是spa?
+    日后项目中只有一张页面
+    不管项目多复杂, 只有一张页面
+
+    为什么推荐单页面开发方式?
+        a.引入vuejs文件
+        b.在现有页面中创建vue实例对象
+    一个页面中只能存在一个vue实例
+    vue推荐的开发方式要求一个前端应用中只能存在一个vue实例
+    因为vue实例太多容易导致数据交互的混乱
+    index.html
+    new Vue({})
+    4.使用现有手段严格遵循spa存在问题?
+    模块太多了
+    员工
+    商品
+    订单
+    库存
+    ...
+
+    代码越来越多, 不利于后期维护
+    功能越来越多, 一个页面完成全部业务功能, 执行效率低, 加载速度慢
+
+    5.为了严格遵循spa开发方式
+    vue中提供了vue组件(component
+    将每个业务模块划分到组件中
+    对组件可以进行复用
+    作用: 减少vue实例中的代码量
+    根据业务功能将业务代码规整成组件
+    便于vue开发时的维护与管理
+
+    组件1: 减少vue根实例的代码量
+    组件2: 组件负责完成项目中的一个/一组功能
+    组件3: 实现复用
+
+
+    6.组件如何使用?
+    a.全局组件: 注册vue根实例组件
+        head 组件
+        直接注册给vue, 不依赖其他组件
+        Vue.component('')注册1个全局组件
+    b.局部组件: 只能在注册组件中使用的组件
+        员工组件
+            员工添加组件
+        new Vue({
+        ...
+            components:{
+            注册n个局部组件
+            }
+        })
+
+    -->
+</div>
+</body>
+<script src="../vue27.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "vue组件 components",
+        },
+        methods: {},
+    })
+</script>
+</html>

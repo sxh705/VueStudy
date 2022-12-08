@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>vue生命周期</h1>
+    <!--
+    1.vue从创建到销毁的过程
+    2.vue生命周期钩子=>vue生命周期函数
+        钩子特点: 伴随生命周期过程自动调用, 无需手动调用
+    -->
+    <h1 id="h1">{{msg}}</h1>
+    <input v-model="msg">
+
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="../vueDev27.js"></script>
+<script src="../axios12.js"></script>
+<script>
+    //生命周期函数(钩子) 伴随着vue的创建 使用 和 销毁 自动触发
+    //vue实例的生命周期阶段
+    //1.初始化 2.运行 3.销毁
+    //events:
+    // beforeCreate
+    // created
+    // beforeMount
+    // Mounted
+    // beforeUpdate
+    // updated
+    // beforeDestroy
+    // destroyed
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "7051",
+        },
+        methods: {},
+        computed: {},
+        beforeCreate() {//自身内部事件, 生命周期函数注入
+            //阻塞的
+            for (let i = 0; i < 99999; i++)
+                console.log("beforeCreate", this.msg)//取不到
+        },
+        created() {//注入data el methods等属性..
+            //开始发请求
+            console.log("created", this.msg);//取得到
+        },
+        beforeMount() {//el还是一个原始模板, 未完成渲染
+            console.log("beforeMount", document.getElementById("h1").innerText)
+            //取不到msg
+        },
+        mounted() {//渲染虚拟模板之后, 取得到msg
+            console.log("mounted", document.getElementById("h1").innerText)
+            //取的到msg
+        },
+        beforeUpdate() {//运行阶段, 数据双向绑定
+            // vue实例中data已经变化, 页面还未改变
+            console.log("beforeUpdate", this.msg)
+            console.log("beforeUpdate", document.getElementById("h1").innerText)
+        },
+        updated() {//此时vue与页面数据一致
+            console.log("updated", this.msg)
+            console.log("updated", document.getElementById("h1").innerText)
+        },
+        //when vm.$destroy() is called 必须手动销毁
+        beforeDestroy() {//销毁时执行的生命周期函数, 此时vue所有特性存在, 刚开始销毁
+            console.log("beforeDestroy", "开始销毁")
+        },
+        destroyed() {//卸下所有孩子组件, 内部事件, 双向绑定, 监听,
+            console.log("destroyed", "销毁完成")
+        },
+
+    })
+
+</script>
+</html>

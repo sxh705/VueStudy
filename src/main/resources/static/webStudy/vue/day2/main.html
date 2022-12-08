@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门</title>
+    <script src="../vue27.js"></script>
+
+</head>
+<body>
+<div id="app">
+    {{msg}}
+    <h3>{{user}}</h3>
+    <h3>名称: {{user.name}}</h3>
+    <h3>{{ lists }}</h3>
+    <h3>{{ lists[1] + 1}}校区</h3>
+    <h3>{{ 114514 * 1919810.3333314159 }}</h3>
+    <h3>{{ Array.from("apple".toUpperCase().substring(1,5)) }}</h3>
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",//vue实例作用范围
+        data: {
+            msg: "hellovue",
+            user: {
+                name: '白纸教育',
+                msg: "白纸教育欢迎你"
+            },
+            lists: ["河南", '北京', "田径"],
+
+        },
+    })
+</script>
+</body>
+</html>

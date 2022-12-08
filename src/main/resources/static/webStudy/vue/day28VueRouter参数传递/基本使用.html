@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <!--路由: vuejs的官方路由管理器
+        vue推荐: 使用单页面开发
+        不建议在一页写所有功能-- 开发组件
+        vue路由 通俗定义: 根据前端url的不同路径展示不同组件, 实现组件的动态切换
+        不要一次展示所有组件
+        /index.html/dept
+        /index.html/emp
+        /index.html/login
+        需要 配置路由规则
+        需要在 vue对象中注册路由
+        router-view
+        需要额外依赖
+    -->
+    <a href="#/login">登录</a>
+    <a href="#/reg">注册</a>
+    <hr>
+    <router-view></router-view>
+    <router-view></router-view>
+
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script src="../vue-router_36.js"></script>
+<!--https://v3.router.vuejs.org/zh/guide/#html-->
+<script>
+    const login = {//登录组件
+        template: `<div><h3>登录</h3></div>`
+    }
+    const reg = {//注册组件
+        template: `<div><h3>注册</h3></div>`
+    }
+    const notFound = {//404组件
+        template: `<div><h3>页面走丢了...</h3></div>`
+    }
+    //路由规则对象 地址栏带#/, 哈希路由
+    const router = new VueRouter({
+        routes: [//路由规则属性
+            //不建议一个组件对应多个路由
+            // {path: '/', component: login},
+            //重定向: redirect
+            //path路径 component组件 redirect重定向 *通配符
+            {path: '/', redirect: '/login'},
+            {path: '/login', component: login},
+            {path: '/reg', component: register},
+            {path: '*', component: notFound},// *可以放在任意位置 /*必须放在最后
+        ]
+    });
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: `vue路由Router的使用`,
+        },
+        methods: {},
+        components: {},
+        router,//注册路由, es6
+
+    })
+
+</script>
+</html>

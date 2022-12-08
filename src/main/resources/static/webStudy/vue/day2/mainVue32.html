@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门</title>
+
+    <script src="../vue32.js"></script>
+
+</head>
+<body>
+<div id="app">
+    {{ msg }}
+</div>
+<script>
+    Vue32.createApp({
+        data() {
+            return {
+                msg: "hello苏欣昊",
+            }
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>

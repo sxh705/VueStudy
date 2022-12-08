@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <hr>
+
+    <!--路径切换-->
+    <!--切换路由链接-->
+    <a href="#/login">登录</a>
+    <a href="#/register">注册</a>
+    <hr>
+
+    <!--路由切换标签 router-link to="路由路径"-->
+    <router-link to="login">登录</router-link>
+    <router-link to="register">注册</router-link>
+    <hr>
+
+    <!--路由切换标签 router-link :to="路由对象"-->
+    <router-link :to="{path:'/login'}">登录</router-link>
+    <router-link :to="{path:'/register'}">注册</router-link>
+    <hr>
+
+    <!--名称切换 耦合度低, 推荐使用-->
+    <router-link :to="{name:'L'}">登录</router-link>
+    <router-link :to="{name:'R'}">注册</router-link>
+    <hr>
+
+    <!--js切换-->
+    <button @click.privent="login">登录</button>
+    <button @click.privent="register">注册</button>
+
+    <!--路由组件标签-->
+    <router-view/>
+
+
+</div>
+</body>
+<script src="../vueDev27.js"></script>
+<script src="../vue-router_36.js"></script>
+<script>
+    //login
+    const login = {
+        template: `<div><h4>登录</h4></div>`
+    }
+    //register
+    const register = {
+        template: `<div><h4>注册</h4></div>`
+    }
+    const router = new VueRouter({
+        routes: [
+            //name代表路径对象名称, 给路由对象一个唯一标识, 只能在routerlink中使用
+            {path: '/', redirect: '/login'},
+            {path: '/login', component: login, name: 'L'},
+            {path: '/register', component: register, name: 'R'},
+        ]
+    })
+    Vue.use(VueRouter);
+    // 解决导航重复
+    const originalPush = VueRouter.prototype.push;
+    VueRouter.prototype.push = function push(location) {
+        return originalPush.call(this, location).catch((err) => err);
+    }
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: `vue router-link切换路由`,
+        },
+        methods: {
+            login() {
+                //业务逻辑
+                //切换组件
+                //Vue.$route 当前路由对象
+                //Vue.$router 路由管理器对象
+                // console.log(this)
+                //this.$router.push('login')
+                // console.log(this.$route)
+                //方案1: 切换前判断
+                //方案2: catch方案
+                //     Vue.use(VueRouter);
+                //     // 解决导航重复
+                //     const originalPush = VueRouter.prototype.push;
+                //     VueRouter.prototype.push = function push(location) {
+                //       return originalPush.call(this, location).catch((err) => err);
+                //     }
+                // if (this.$route.name != 'L')
+                    this.$router.push({path: '/login'})
+            },
+            register() {
+                //this.$router.push('register')
+                // if (this.$route.name != 'R')
+                    this.$router.push({name: 'R'})
+            },
+        },
+        components: {},
+        router,
+    })
+
+</script>
+</html>

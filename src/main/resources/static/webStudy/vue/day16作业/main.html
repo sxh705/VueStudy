@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>vue作业: staff管理</h1>
+    <table border="1" cellspacing="0">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>age</th>
+            <th>salary</th>
+            <th colspan="2">options</th>
+        </tr>
+        <tr v-for="x in staffs" :key="x.id">
+            <td>{{x.id}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.age}}</td>
+            <td>{{x.salary}}</td>
+            <td>
+                <a @click.prevent="del(x.id)">del</a>
+                <a @click.prevent="staff=Object.assign({}, x)">edit</a>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <h5>id:<input v-model="staff.id" placeholder="自动生成" disabled></h5>
+        <h5>name:<input v-model="staff.name"></h5>
+        <h5>age:<input type="number" v-model="staff.age"></h5>
+        <h5>salary:<input type="number" v-model="staff.salary"></h5>
+        <button @click.prevent="addOrEdit">添加/修改</button>
+        <button @click.prevent="staff={}">清空</button>
+    </div>
+</div>
+</body>
+<!--<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>-->
+<!--<link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">-->
+<!--<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>-->
+<script src="../vueDev27.js"></script>
+<script src="../axios12.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/qs/6.10.1/qs.js"></script>
+<script>
+    //作业: staff列表展示
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "7051",
+            staff: {},
+            staffs: [],
+            instance: axios.create({baseURL: "http://localhost:8080/staff/",})
+        },
+        methods: {
+            getAll() {
+                this.instance.get()
+                    .then(res => {
+                        this.staffs = res.data
+                    })
+            },
+            get(id) {
+                this.instance.get("" + id)
+                    .then(res => {
+                        return res.data == true
+                    })
+            },
+            del(id) {
+                // if (!window.confirm("确认删除? ")) return;
+                this.instance.delete('' + id).then(res => {
+                    this.getAll()
+                })
+            },
+            addOrEdit() {
+                if (!this.staff.id) {
+                    if (!this.staff.name || !this.staff.age || !this.staff.salary) {
+                        alert("请输入完整员工信息")
+                        return
+                    }
+                    //保存编辑
+                    this.instance.post("", this.staff)
+                        .then(res => {
+                            this.staff = {}
+                            this.getAll()
+                        })
+                } else {
+                    this.instance.get("" + this.staff.id)
+                        .then(res => {
+                            if (!!res.data.id) {
+                                Object.assign(res.data, this.staff)
+                                this.instance.put("", res.data)
+                                    .then(res => {
+                                        if (res.data == true)
+                                            this.getAll()
+                                        else alert("编辑失败")
+                                    })
+                            } else {
+                                alert("编辑的员工id不存在/新员工不能设定id")
+                            }
+                        })
+                }
+            },
+
+        },
+        computed: {},
+        created() {
+            // 添加请求拦截器
+            this.instance.interceptors.request.use(function (config) {
+                // 在发送请求之前做些什么
+                return config;
+            }, function (err) {
+                alert("系统请求异常, 请稍后重试\n" + err.toString())// 对请求错误做些什么
+                return Promise.reject(err);
+            });
+            this.instance.interceptors.response.use(
+                res => {
+                    return res; // 对响应数据做点什么
+                },
+                err => {
+                    alert("系统响应异常, 请稍后重试\n" + err.toString())// 对响应错误做点什么
+                    return Promise.reject(err);
+                });
+            this.getAll()
+        },
+    })
+    //events:
+    // beforeCreate
+    // created
+    // beforeMount
+    // Mounted
+    // beforeUpdate
+    // updated
+    // beforeDestroy
+    // destroyed
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>事件修饰符</h1>
+    <!--
+    .stop       阻止事件冒泡
+    .prevent    阻止标签默认行为
+    .self       只监听自身事件
+    .once       事件只触发一次
+    事件冒泡
+
+    -->
+    <div style="width: 200px;height: 200px;background-color: red" @click="toastr.warning('parent')">
+        <div style="width: 100px;height: 100px;background-color: blue" @click.stop="toastr.warning('son')">
+            .stop 阻止冒泡
+            <div style="width: 50px;height: 50px;background-color: green" @click="toastr.warning('sonson')">
+            </div>
+        </div>
+    </div>
+
+    <a href="https://www.baidu.com" @click.prevent="toastr.warning('testa')">.prevent 阻止默认</a>
+    <a href="javascript:;" @click.prevent="toastr.warning('testa')">javascript:;</a>
+
+    <div style="width: 200px;height: 200px;background-color: red" @click.self="toastr.warning('parent')">
+        .self 修饰自身
+        <div style="width: 100px;height: 100px;background-color: blue" @click="toastr.warning('son')">
+            <div style="width: 50px;height: 50px;background-color: green" @click="toastr.warning('sonson')">
+            </div>
+        </div>
+    </div>
+
+    <button @click.once="toastr.warning('button')">.Once 一次性</button>
+
+</div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="../vue27.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "sxh705"
+        },
+        methods: {},
+    })
+</script>
+</html>

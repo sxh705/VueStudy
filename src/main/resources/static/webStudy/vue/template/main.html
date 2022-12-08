@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}, 欢迎来到购物车系统</h1>
+    编号: <input v-model="product.id">
+    名称: <input v-model="product.name">
+    价格: <input v-model="product.price">
+    数量: <input v-model="product.count">
+    <input type="button" value="添加到购物车" @click="addTab()">
+    <table border="1" cellspacing="0">
+        <tr>
+            <th>编号</th>
+            <th>名称</th>
+            <th>价格</th>
+            <th>购买数量</th>
+            <th>小计</th>
+        </tr>
+
+        <tr v-for="(x, id) in items">
+            <td>{{x.id}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.price}}</td>
+            <td>
+                <input type="button" value="+" @click="x.count<15?x.count++:toastr.warning('禁止大于15')">
+                <input type="number" v-model="x.count">
+                <input type="button" value="-" @click="x.count>0?x.count--:toastr.warning('禁止小于0')">
+            </td>
+            <td>{{(x.price*x.count).toFixed(2)}}</td>
+        </tr>
+    </table>
+    <h3>总价格: {{totalPrice()}}</h3>
+    <h3>总价格: {{totalPrice2()}}</h3>
+    <h3>总价格: {{totalPrice3()}}</h3>
+
+</div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="../vue27.js"></script>
+
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "sxh705",
+            items: [
+                {
+                    id: 1,
+                    name: "iphone8",
+                    price: 19.9,
+                    count: 1,
+                }, {
+                    id: 2,
+                    name: "华为mate40pro",
+                    price: 15,
+                    count: 1,
+                }
+            ],
+            product: {},
+        },
+        methods: {
+            totalPrice() {
+                let all = 0.0
+                let e = this.items
+                for (let i in e) {
+                    let x = e[i]
+                    all += x.price * x.count
+                }
+                return all.toFixed(2)
+            },
+            totalPrice2() {
+                let all = 0.0
+                this.items.forEach(x => all += x.price * x.count)
+                return all.toFixed(2)
+            },
+            totalPrice3() {
+                let all = 0.0
+                for (x of this.items) all += x.price * x.count
+                return all.toFixed(2)
+            },
+            addTab() {
+                let x = app.product
+                let num = 0
+                for (let y in x) num++
+                if (num != 4) {
+                    toastr.warning('参数不能为空!')
+                    return
+                }
+                app.items.push(app.product)
+                app.product = {}
+            }
+        }
+    })
+</script>
+</html>

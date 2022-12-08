@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门_事件</title>
+    <script src="../vue27.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <button @click="a = !a">我测你们码</button>
+    <button @click="
+        if(a)
+            a=false;
+        else
+            a=true;
+    ">我测你们码1
+    </button>
+
+    <div v-show='a'>操作css</div>
+    <div v-if="!a">操作dom节点</div>
+    <img width="10%" title="属性绑定"
+         src="https://imgv3.fotor.com/images/homepage-feature-card/%E5%9B%BE%E7%89%87%E8%A3%81%E5%89%AA.jpg">
+    <img width="10%" v-bind:title="tb" v-bind:src="src">
+    <img width="10%" :title="tb" :src="src">
+    <!--v-bind简写-->
+    <br>
+    <input type="text" v-model="tb">
+    <input type="text" v-model="tb">
+    <input type="text" v-model="tb">
+    <input type="text" v-model="tb">
+    <div>{{tb}}</div>
+    <div v-text:value="tb"></div>
+
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",//vue实例作用范围
+        data: {
+            a: false,
+            tb: "属性绑定1111",
+            src: "https://img-blog.csdnimg.cn/20201014180756916.png"
+        },
+        methods: {}
+    })
+</script>
+
+</body>
+</html>

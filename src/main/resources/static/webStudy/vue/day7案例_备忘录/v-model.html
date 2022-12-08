@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门_事件</title>
+    <script src="../vue27.js"></script>
+    <style>
+        .aa{
+            width: 200px;
+            height: 200px;
+            border: 10px red solid;
+        }
+        .bb{
+            width: 200px;
+            height: 200px;
+            border: 10px green dashed;
+        }
+    </style>
+</head>
+<body>
+<div id="app" @wheel="alert('fuck you')">
+    <span @click="alert(111)">111</span>
+    <!--
+        v-model:将html的value属性进行绑定, 交给vue管理, 主要用于表单元素, 最能体现双向绑定机制的指令
+        (只有表单存在value属性
+        v-bind:将html的属性进行绑定, 交给vue管理
+    -->
+    <h2>{{msg}}</h2>
+    <input v-model="msg">
+    <input :value="msg" @input="msg=event.target.value">
+
+    <input :class="re(sty)" v-model="sty" placeholder="输入样式a/b">
+
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",//vue实例作用范围
+        data: {
+            msg: "hello world",
+            sty: "aa",
+        },
+        methods: {
+            re(val){
+                return val+val;
+            }
+        },
+    })
+
+
+</script>
+
+</body>
+</html>

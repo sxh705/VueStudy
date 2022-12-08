@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门_事件</title>
+    <script src="../vue27.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <form>
+        用户名: <input v-model="user.username"><br>
+        密码: <input v-model="user.password"><br>
+        邮箱: <input v-model="user.email"><br>
+        QQ: <input v-model="user.qq"><br>
+        验证码: <input v-model="user.code"><br>
+        <input type="button" @click="reg" value="注册">
+    </form>
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",//vue实例作用范围
+        data: {
+            msg: "hello world",
+            user: {},
+        },
+        methods: {
+            reg() {
+                //获取form, 发送请求
+                console.log(app.user)
+                $post("baidu.com", this.user)
+            }
+        },
+    })
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门_事件</title>
+    <script src="../vue27.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <h2>{{ msg }}</h2>
+    <button @click="add">-</button>
+    <button @click="sub">+</button>
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",//vue实例作用范围
+        data: {
+            msg: 1,
+        },
+        methods: {
+            add() {
+                if (app.msg > 1) app.msg--
+                else alert('最小为0')
+            },
+            sub() {
+                if (app.msg < 5) app.msg++
+                else alert('最大为5')
+            },
+        }
+    })
+</script>
+
+</body>
+</html>

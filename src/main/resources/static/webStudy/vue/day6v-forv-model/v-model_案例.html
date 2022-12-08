@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门</title>
+    <script src="../vue27.js"></script>
+</head>
+<body>
+<div id="app">
+    请输入内容: <textarea style="height:200px;width:50%;" v-model="temp"></textarea>
+    <input type="button" @click="add" value="添加到备忘录">
+    <br>
+    <ul>
+        <li v-for="(x,id) in dialog" :key="id">
+            {{id+1}} {{x}}
+            <a href="javascript:" @click="del(id)">删除</a>
+        </li>
+    </ul>
+    <ul v-if="dialog.length==0">
+        <li style="color: red">当前列表中没有任何数据!!</li>
+    </ul>
+    <a v-show="dialog.length!=0" href="javascript:" @click="dialog=[]">清除备忘录</a>
+    <h3>当前备忘录共{{dialog.length}}条</h3>
+</div>
+
+<script>
+    const app = new Vue({
+        el: "#app",//vue实例作用范围
+        data: {
+            msg: "hello world",
+            dialog: ["好吃的", "打游戏", "学习"],
+            temp: "",
+        },
+        methods: {
+            add() {
+                if (!app.temp) return
+                app.dialog.push(app.temp)
+                app.temp = "";
+            },
+            del(id) {
+                app.dialog.splice(id, 1)//下标删除
+            }
+        },
+    })
+
+    test = function () {
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+    <router-link to="/users">users</router-link>
+    <router-view></router-view>
+</div>
+
+<template id="users">
+    <div>
+        <h3>用户列表</h3>
+        <router-link to="/users/useradd">添加用户信息</router-link>
+        <table border="1">
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>age</th>
+                <th>salary</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="x,id in users">
+                <td>{{x.id}}</td>
+                <td>{{x.name}}</td>
+                <td>{{x.age}}</td>
+                <td>{{x.salary}}</td>
+                <td>
+                    <button>修改</button>
+                    <button>删除</button>
+                </td>
+            </tr>
+        </table>
+        <router-view></router-view>
+    </div>
+</template>
+
+</body>
+<script src="../vueDev27.js"></script>
+<script src="../vue-router_36.js"></script>
+<script>
+    const users = {
+        template: `#users`,
+        data() {
+            return {
+                users: [],
+            }
+        },
+        created() {
+            this.users = [
+                {id: 1, name: 'xiaochen', age: 23, salary: 2333},
+            ]
+        }
+    }
+    const useradd = {
+        template: '<div>这是用户添加form</div>',
+
+    }
+
+
+    // "111".let == let a = "111"
+    const router = new VueRouter({
+        routes: [
+            {
+                path: '/users', name: 'users', component: users,
+                children: [//子组件路由(不能以/开头
+                    {path: 'useradd', name: 'useradd', component: useradd},
+                ],
+            },
+        ],
+    })
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: `vue 嵌套路由 `,
+        },
+        methods: {},
+        components: {},
+        router,
+    })
+
+</script>
+</html>
